@@ -50,6 +50,8 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
+
+    
     private void submitRegister(){
         this.fullName = Form.getInputVal(findViewById(R.id.fullname));
         this.username = Form.getInputVal(findViewById(R.id.username));
