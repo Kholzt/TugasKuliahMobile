@@ -31,7 +31,7 @@ public class LoginActivity extends AppCompatActivity {
         registerLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigate.push(LoginActivity.this,RegisterActivity.class);
+                Navigate.push(LoginActivity.this,ListMahasiswaActivity.class);
             }
         });
     }

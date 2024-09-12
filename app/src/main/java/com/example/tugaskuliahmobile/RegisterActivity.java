@@ -1,71 +1,91 @@
-package com.example.tugaskuliahmobile;
+    package com.example.tugaskuliahmobile;
 
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
+    import android.app.DatePickerDialog;
+    import android.os.Bundle;
+    import android.util.Log;
+    import android.view.View;
+    import android.widget.Adapter;
+    import android.widget.ArrayAdapter;
+    import android.widget.Button;
+    import android.widget.EditText;
+    import android.widget.Spinner;
+    import android.widget.TextView;
+    import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+    import androidx.activity.EdgeToEdge;
+    import androidx.appcompat.app.AppCompatActivity;
+    import androidx.core.graphics.Insets;
+    import androidx.core.view.ViewCompat;
+    import androidx.core.view.WindowInsetsCompat;
 
-import com.example.tugaskuliahmobile.libs.Dialog;
-import com.example.tugaskuliahmobile.libs.Form;
+    import com.example.tugaskuliahmobile.libs.Dialog;
+    import com.example.tugaskuliahmobile.libs.Form;
+    import com.example.tugaskuliahmobile.libs.Helpers;
 
-public class RegisterActivity extends AppCompatActivity {
-    private String fullName ;
-    private String username ;
-    private String email ;
-    private String dateBirth ;
-    private String password ;
-    private String confirm ;
-    private String alamat ;
-    private String gender ;
-    private String noHp ;
-    private Button btnRegister ;
+    import java.util.Calendar;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
-        btnRegister = findViewById(R.id.btn_register);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+    public class RegisterActivity extends AppCompatActivity {
 
-        btnRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                submitRegister();
-            }
-        });
 
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_register);
+
+            Spinner gender = Form.getSpinner(findViewById(R.id.gender));
+            ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+                Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+                v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+                return insets;
+            });
+            String[] genders = new String[]{"laki-laki", "perempuan"};
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, genders);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            gender.setAdapter(adapter);
+
+            Button btnRegister = findViewById(R.id.btn_register);
+            EditText edtDateBirth = findViewById(R.id.date_of_birth);
+            edtDateBirth.setOnClickListener(v -> showDatePickerDialog(edtDateBirth));
+            btnRegister.setOnClickListener(v -> submitRegister());
+
+        }
+
+ private <T extends TextView> void showDatePickerDialog(T outputComponent) {
+        final Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(
+                RegisterActivity.this,
+                (view, year1, month1, dayOfMonth) -> {
+                    String  monthName = Helpers.getMonthName(month1);
+                    String date = dayOfMonth + "-" + monthName.substring(0,3) + "-" + year1;
+                    outputComponent.setText(date);
+                },
+                year, month, day
+        );
+        datePickerDialog.show();
     }
 
-
-    
-    private void submitRegister(){
-        this.fullName = Form.getInputVal(findViewById(R.id.fullname));
-        this.username = Form.getInputVal(findViewById(R.id.username));
-        this.password = Form.getInputVal(findViewById(R.id.password));
-        this.confirm = Form.getInputVal(findViewById(R.id.confirm));
-//        this.gender = Form.getSpinnerVal(findViewById(R.id.gender));
-        this.alamat = Form.getInputVal(findViewById(R.id.alamat));
-        this.noHp = Form.getInputVal(findViewById(R.id.no_hp));
-        this.email = Form.getInputVal(findViewById(R.id.email));
-
-        try {
-            Toast.makeText(this,"Berhasil register",Toast.LENGTH_SHORT).show();
-        }catch (Exception e){
-            Log.e("RegisterActivity", "Error showing dialog", e);
+        private void submitRegister(){
+            String fullName = Form.getInputVal(findViewById(R.id.fullname));
+            String username = Form.getInputVal(findViewById(R.id.username));
+            String password = Form.getInputVal(findViewById(R.id.password));
+            String confirm = Form.getInputVal(findViewById(R.id.confirm));
+            String dateBirth = Form.getInputVal(findViewById(R.id.date_of_birth));
+    //        String gender = Form.getSpinnerVal(findViewById(R.id.gender));
+            String alamat = Form.getInputVal(findViewById(R.id.alamat));
+            String noHp = Form.getInputVal(findViewById(R.id.no_hp));
+            String email = Form.getInputVal(findViewById(R.id.email));
+            try {
+                String content = "Fullname          :"+fullName+"\n" +
+                                 "Email             :"+email+"\n"+
+                                 "Tanggal lahir     :"+dateBirth+"\n";
+                Dialog.showSuccessDialog(this, "Success", content);
+                Toast.makeText(this,"Berhasil register",Toast.LENGTH_SHORT).show();
+            }catch (Exception e){
+                Log.e("RegisterActivity", "Error showing dialog", e);
+            }
         }
     }
-}

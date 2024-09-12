@@ -32,5 +32,6 @@ public class Dialog {
                .setPositiveButton(positiveText, positiveListener)
                .setNegativeButton(negativeText, negativeListener);
         builder.create().show();
+
     }
 }

@@ -1,3 +1,20 @@
 <resources>
-    <string name="app_name">TugasKuliahMobile</string>
+    <string name="app_name">Tugas Kuliah Mobile</string>
+
+    <string-array name="nama_mhs">
+        <item>Jakfar S</item>
+        <item>Mafir A</item>
+        <item>Reo A</item>
+        <item>Sagita P</item>
+        <item>Akbar M</item>
+        <item>Ilham N</item>
+        <item>Taufiqur R </item>
+        <item>Sonu</item>
+        <item>Tyo</item>
+        <item>Dendi</item>
+        <item>Solli</item>
+        <item>Rei</item>
+        <item>Alip</item>
+        <item>Alex</item>
+    </string-array>
 </resources>
