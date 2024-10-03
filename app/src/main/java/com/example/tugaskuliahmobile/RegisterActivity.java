@@ -1,6 +1,7 @@
     package com.example.tugaskuliahmobile;
 
     import android.app.DatePickerDialog;
+    import android.content.Intent;
     import android.os.Bundle;
     import android.util.Log;
     import android.view.View;
@@ -21,6 +22,7 @@
     import com.example.tugaskuliahmobile.libs.Dialog;
     import com.example.tugaskuliahmobile.libs.Form;
     import com.example.tugaskuliahmobile.libs.Helpers;
+    import com.example.tugaskuliahmobile.libs.Navigate;
 
     import java.util.Calendar;
 
@@ -79,11 +81,17 @@
             String noHp = Form.getInputVal(findViewById(R.id.no_hp));
             String email = Form.getInputVal(findViewById(R.id.email));
             try {
-                String content = "Fullname          :"+fullName+"\n" +
-                                 "Email             :"+email+"\n"+
-                                 "Tanggal lahir     :"+dateBirth+"\n";
-                Dialog.showSuccessDialog(this, "Success", content);
+                 Intent intent = new Intent(this, LoginActivity.class);
+                intent.putExtra("fullName", fullName);
+                intent.putExtra("username", username);
+                intent.putExtra("password", password);
+                intent.putExtra("dateBirth", dateBirth);
+                intent.putExtra("alamat", alamat);
+                intent.putExtra("noHp", noHp);
+                intent.putExtra("email", email);
                 Toast.makeText(this,"Berhasil register",Toast.LENGTH_SHORT).show();
+                startActivity(intent);
+                finish();
             }catch (Exception e){
                 Log.e("RegisterActivity", "Error showing dialog", e);
             }

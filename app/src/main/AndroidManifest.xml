@@ -13,6 +13,15 @@
         android:theme="@style/Theme.TugasKuliahMobile"
         tools:targetApi="31">
         <activity
+            android:name=".OrderActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ListKontakActivity"
+            android:exported="false" />
+        <activity
+            android:name=".KontakActivity"
+            android:exported="false" />
+        <activity
             android:name=".ListMahasiswaActivity"
             android:exported="false" />
         <activity

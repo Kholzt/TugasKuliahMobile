@@ -13,9 +13,10 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class ListMahasiswaActivity extends AppCompatActivity implements  AdapterView.OnItemClickListener {
+public class ListMahasiswaActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
     private ListView list;
     private ArrayAdapter<CharSequence> adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +34,7 @@ public class ListMahasiswaActivity extends AppCompatActivity implements  Adapter
 
         //inisialisasi list mhs
         list = findViewById(R.id.list_mhs);
-list.setAdapter(adapter);
+        list.setAdapter(adapter);
         list.setOnItemClickListener(this);
     }
 
